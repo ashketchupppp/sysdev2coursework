@@ -3,6 +3,7 @@
 This is the main repository for our systems development 2 code.
 
 For a guide on how to use github, go here http://guides.github.com/activities/hello-world
+For a guide on how to use github in Visual Studio Code, go here https://code.visualstudio.com/docs/introvideos/versioncontrol
 
 How you should use github is:
 
