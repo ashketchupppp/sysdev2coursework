@@ -9,4 +9,4 @@ How you should use github is:
 
  - make a new branch
  - make your changes
- - make a pull request to merge to with the master branch 
+ - make a pull request to merge to with the master branch
