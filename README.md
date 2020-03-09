@@ -1,5 +1,4 @@
 # Systems Development Group Coursework: Dartmouth 
-
 This is the main repository for our systems development coursework code.
 
 git is a version control system, github is the central place for storing git repositories.
@@ -26,15 +25,6 @@ then at the top menu you go to Repository > Push to push your changes to the bra
 
 then to merge your branch with master you should go to this page and make a pull request. (note: it's a request not a demand)
 
-# quick git command line guide
-how you should make changes to this git repository is:
- - make a NEW branch "git branch branch_name_here"
- - checkout the branch (start using it) "git checkout branch_name"
- - make sure you are not on the master branch "git status"
- - make your changes
- - add your changes to the branch "git add ."
- - commit your changes to the branch "git commit -m commit message here"
- - make a pull request to merge to with the master branch.
-   this is done on this page, not in the command line.
-   it is a request, your changes aren't immediately made, the owner of
-   this repository (chris) will review the change before it can be made.
+# best practices
+here is a list of things which yu should do when you are working
+   1. work incrementally and commit often. large changes take a LONG time to review.
