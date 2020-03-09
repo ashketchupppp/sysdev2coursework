@@ -25,6 +25,20 @@ then at the top menu you go to Repository > Push to push your changes to the bra
 
 then to merge your branch with master you should go to this page and make a pull request. (note: it's a request not a demand)
 
+# how we are going to work
+we have to test each individual module that we write and each module has a specific file structure.
+in the example directory there is an example module, copy the structure of this module for any module that you write.
+
+michael marked me down for not using docstrings in the last piece of coursework so make sure every function
+has a docstring.
+ - Triple quotes are used even though the string fits on one line. This makes it easy to later expand it.
+ - The closing quotes are on the same line as the opening quotes. This looks better for one-liners.
+ - There's no blank line either before or after the docstring.
+ - The docstring is a phrase ending in a period. It prescribes the function or method's effect as a command ("Do this", "Return that"), not as a description; e.g. don't write "Returns the pathname ...".
+ - The one-line docstring should NOT be a "signature" reiterating the function/method parameters (which can be obtained by introspection). Don't do:
+more information here https://www.python.org/dev/peps/pep-0257/ (i use a docstring in the example module)
+
+
 # best practices
 here is a list of things which yu should do when you are working
    1. work incrementally and commit often. large changes take a LONG time to review.
