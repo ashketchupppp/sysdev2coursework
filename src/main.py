@@ -15,11 +15,11 @@ while not end_program:
     user_input = input(" > ")
     user_input = user_input.lower()
     print()
-    if user_input == "help":
+    if user_input == "Help":
         print(help_message) 
-    elif user_input == "restart":
+    elif user_input == "Restart":
         print("not sure what this is meant to do yet")
-    elif user_input == "quit":
+    elif user_input == "Quit":
         end_program = True
     else:
         print("That is not a valid command. Type 'help' for a list of command.")
