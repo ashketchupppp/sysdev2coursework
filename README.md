@@ -22,6 +22,8 @@ then you need to checkout the branch, this just means use the branch, i'm not su
 now you can make changes to your code, they will be automatically picked up by Github desktop.
 
 when you are happy with your changes you should commit them to your branch with the button at the bottom left.  
+then at the top menu you go to Repository > Push to push your changes to the branch that is stored on Github (as opposed to storing them on your own computer as they have been up to this point) 
+
 then to merge your branch with master you should go to this page and make a pull request. (note: it's a request not a demand)
 
 # quick git command line guide
