@@ -42,3 +42,4 @@ more information here https://www.python.org/dev/peps/pep-0257/ (i use a docstri
 # best practices
 here is a list of things which yu should do when you are working
    1. work incrementally and commit often. large changes take a LONG time to review.
+   2. no need to add an "updated" version of file or something like that. just change the file.
