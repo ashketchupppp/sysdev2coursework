@@ -13,7 +13,10 @@ def csv_to_dict(filepath):
                 newRow = {}
                 for key in row:
                     # add the values into the new row
-                    newRow[key] = row[key]
+                    if row[key] == None:
+                        newRow[key] = ''
+                    else:
+                        newRow[key] = row[key]
                 # add the new row to the array
                 outputArray.append(newRow)
         return outputArray

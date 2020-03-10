@@ -55,7 +55,22 @@ class TestModuleCsvToDict(unittest.TestCase):
         invalidCsvFilename = "test.csv"
         actualOutput = csv_to_dict(invalidCsvFilename)
         self.assertEqual(actualOutput, expectedOutput)
-        
+
+    def test_adds_columns(self):
+        """Test to ensure that if a row doesn't have enough columns then they are filled in."""
+        emptyColumnCsvString = "firstName,lastName,dateofbirth,numberofsiblings\n,lloyd,14/01/2000\njack,,06/04/2001\njill,nicks,\n"
+        expectedOutput = [
+                {"firstName":"", "lastName":"lloyd", "dateofbirth":"14/01/2000", "numberofsiblings":""},
+                {"firstName":"jack", "lastName":"", "dateofbirth":"06/04/2001", "numberofsiblings":""},
+                {"firstName":"jill", "lastName":"nicks", "dateofbirth":"", "numberofsiblings":""}
+        ]
+
+        csvFilename = "test.csv"
+        fileWriteHelper(emptyColumnCsvString, csvFilename)
+        actualOutput = csv_to_dict(csvFilename)
+        fileDeleteHelper(csvFilename)
+        self.assertEqual(actualOutput, expectedOutput)
+
 # this is required to be able to run the tests
 if __name__ == '__main__':
     unittest.main()
