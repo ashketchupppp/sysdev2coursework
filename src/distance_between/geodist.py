@@ -12,9 +12,14 @@ def distance( latlngA, latlngB):
     of the Earth assuming a sphere. With the default value of R of 6371.009
     the distance will be in kilometers.
     See also: https://en.wikipedia.org/wiki/Geographical_distance
-
+    Returns -1 if lat or lng co-ords are empty.
 
     '''
+    if len(latlngA) != 2 or len(latlngB) != 2:
+        d = -1
+        return d
+    
+    
     R = 6371.009 # approximate radius of earth surface (radius from center
                  # of the sphere in km)
     latA, lngA = latlngA
@@ -28,7 +33,7 @@ def distance( latlngA, latlngB):
     d = math.sqrt( x*x + y*y ) * R
     return d
 
-if __name__ == "__main__":
+#if __name__ == "__main__":
     # Testing
     # TODO: Please verify the function by providing suitable test cases and
     # using asserts. The test should cover the cases your program is to deal
