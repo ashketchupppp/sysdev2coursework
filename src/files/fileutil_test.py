@@ -28,37 +28,42 @@ class TestModuleCsvToDict(unittest.TestCase):
 
     def test_valid_conversion(self):
         """Test to make sure that list read from new file is same as list input into writer."""
-        validDict = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'field1': 'bob10', 'field2': 'bob20', 'field3': 'bob30'},]
+        keys = {'field1', 'field2', 'field3'}
+        validContent = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'field1': 'bob10', 'field2': 'bob20', 'field3': 'bob30'},]
         validCsvFilename = "test.csv"
-        filepath = dict_to_csv(validCsvFilename, validDict)
+        filepath = write_csv(validCsvFilename, validContent, keys)
         actualOutput = fileReaderHelper(filepath)
-        expectedOutput = validDict
+        expectedOutput = validContent
         self.assertEqual(actualOutput, expectedOutput)
         
     def test_invalid_input(self):
         """Test to make sure that an array containing -1 is returned if fields are different"""
-        validDict = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'test': 'test', 'field2': 'bob20', 'field3': 'bob30'},]
+        keys = {'field1', 'field2', 'field3'}
+        validContent = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'test': 'test', 'field2': 'bob20', 'field3': 'bob30'},]
         validCsvFilename = "test.csv"
-        actualOutput = dict_to_csv(validCsvFilename, validDict)
+        actualOutput = write_csv(validCsvFilename, validContent, keys)
         expectedOutput = [-1]
         self.assertEqual(actualOutput, expectedOutput)
     
     def test_empty_input(self):
         """Test to make sure that an array containing -1 is returned if field is empty"""
-        validDict = ""
+        keys = {'field1', 'field2', 'field3'}
+        validContent = ""
         validCsvFilename = "test.csv"
-        actualOutput = dict_to_csv(validCsvFilename, validDict)
+        actualOutput = write_csv(validCsvFilename, validContent, keys)
         expectedOutput = [-1]
         self.assertEqual(actualOutput, expectedOutput)
     
     def test_invalid_filname(self):
-        """Test to make sure that list read from new file is same as list input into writer."""
-        validDict = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'field1': 'bob10', 'field2': 'bob20', 'field3': 'bob30'},]
+        """Test to make sure -1 is returned with invalid filname."""
+        keys = {'field1', 'field2', 'field3'}
+        validContent = [{'field1': 'bob1', 'field2': 'bob2', 'field3': 'bob3'},{'field1': 'bob10', 'field2': 'bob20', 'field3': 'bob30'},]
         validCsvFilename = "test.cv"
-        actualOutput = dict_to_csv(validCsvFilename, validDict)
+        actualOutput = write_csv(validCsvFilename, validContent, keys)
         expectedOutput = [-1]
         self.assertEqual(actualOutput, expectedOutput)
 
 # this is required to be able to run the tests
 if __name__ == '__main__':
     unittest.main()
+
