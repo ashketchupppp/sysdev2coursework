@@ -9,12 +9,21 @@ unsortedDict = [
       {'Distance (km)': 1.7, 'Date': '9/11/13 9:02', 'Crime Category': 'Vehicle crime'}, 
       {'Distance (km)': 4.0, 'Date': '30/7/14 11:28', 'Crime Category': 'Other crime'}
     ]
-dist = sorted(unsortedDict, key = lambda i: i['Distance (km)'])   
-date = sorted(unsortedDict, key=lambda x: datetime.strptime(x['Date'], '%d/%m/%y %H:%M'), reverse=True)
-crime = sorted(unsortedDict, key = lambda i: i['Crime Category'])
 
-def sort(type):
-    return type
+def sortDate(reverse):
+    """ When reverse=True, data will be sorted by most recent first"""
+    sortedDict = sorted(unsortedDict, key=lambda x: datetime.strptime(x['Date'], '%d/%m/%y %H:%M'), reverse=reverse)
+    return sortedDict
 
-print(sort(date))
 
+def sortDistCrime(type, reverse):
+    """ When reverse=True, data will be sorted by reverse alphabetical order for Crime Category
+        or by crime furthest away from Postcode first  
+    """
+    sortedDict = sorted(unsortedDict, key = lambda i: i[type], reverse=reverse)
+    return sortedDict
+
+
+print(sortDate(True))
+print()
+print(sortDistCrime('Distance (km)', True))
