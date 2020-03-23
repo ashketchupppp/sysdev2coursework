@@ -1,28 +1,9 @@
 import unittest
 import os
 from writer import *
+#Helper function to read files from disk to dict, has its own tests
+from reader import csv_to_dict as fileReaderHelper
 
-def fileReaderHelper(filepath):
-    """Helper function to read files from disk to dict"""
-    if os.path.exists(filepath):
-        with open(filepath, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            outputArray = []
-            # iterate over each row
-            for row in reader:
-                # setup the new row
-                newRow = {}
-                for key in row:
-                    # add the values into the new row
-                    if row[key] == None:
-                        newRow[key] = ''
-                    else:
-                        newRow[key] = row[key]
-                # add the new row to the array
-                outputArray.append(newRow)
-        return outputArray
-    else:
-        return [-1]
 
 class TestModuleCsvToDict(unittest.TestCase):
 
