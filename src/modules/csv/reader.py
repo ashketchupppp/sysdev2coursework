@@ -2,7 +2,7 @@ import csv
 import os
 
 def csv_to_dict(filepath):
-    """Reads a .csv file and outputs the contents into a dictionary."""
+    """Reads a .csv file and outputs the contents into a list of dictionaries."""
     if os.path.exists(filepath):
         with open(filepath, newline='') as csvfile:
             reader = csv.DictReader(csvfile)

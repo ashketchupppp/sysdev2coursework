@@ -1,24 +1,34 @@
-from modules.commands import *
+from modules.commands import commands 
+from modules.fileutil import fileutil 
+from modules.csv import reader 
 
 def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
     help_message = """The following is a list of valid inputs:
 
-    Help - display this message
-    Quit - exit the program
-    Retrieve - retrieve crime data
-    Sort - sort retrieved crime data
-    Filter - filter retrieved crime data
-    Search - search retrieved crime data
-    Save - save retrieved crime data to a file
+    help - display this message
+    quit - exit the program
+    retrieve - retrieve and save to csv: all crime data within co-ordinate radius
+    getcoord - retrieve and display: the latitude and longitude of an EX postcode
     """
     welcome_message = "Welcome to the Crime Data search tool"
 
     end_program = False
 
+    # load the data from the paths given
+    current_data = {} 
+    current_data["postcodes"] = reader.csv_to_dict(full_path_to_devon_postcodes) 
+
+    # search the provided folder for crime data
+    crime_data_csv_files = fileutil.recursive_search(full_path_to_crime_data_folder, "*.csv")
+    current_data["crimedata"] = []
+
+    # load all of the data from the csv files
+    for csvfile in crime_data_csv_files:
+        current_data["crimedata"] = current_data["crimedata"] + reader.csv_to_dict(csvfile)
+
     print("\n" + welcome_message)
     print(help_message)
 
-    current_data = []
 
     while not end_program:
         user_input = input(" > ")
@@ -30,23 +40,13 @@ def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
 
         elif user_input == "quit":
             end_program = True
-
+    
         elif user_input == "retrieve":
-            # this should return the crime data as a list of dictionaries
-            # and assign what is passed back to a variable
-            current_data = retrieve_crime_data()
+            commands.retrieve_crime_data(current_data["crimedata"])
 
-        elif user_input == "sort":
-            sort_crime_data()
-
-        elif user_input == "filter":
-            filter_crime_data()
-
-        elif user_input == "search":
-            search_crime_data()
-
-        elif user_input == "save":
-            save_crime_data()
+        elif user_input == "getcoord":
+            commands.find_postcode_coordinate(current_data["postcodes"])
 
         else:
             print("That is not a valid command. Type 'help' for a list of command.")
+
