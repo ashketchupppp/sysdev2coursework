@@ -1,4 +1,4 @@
-def filter(crime_data_to_filter, latitude, longitude, radius):
+def filter(dictList, radius):
     """Function to filter the given data using the given values."""
     filteredDict = [d for d in dictList if d['distance'] <= radius]
     return filteredDict
