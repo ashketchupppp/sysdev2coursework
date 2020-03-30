@@ -2,3 +2,4 @@
 *.swo
 ~$eReport.docx
 .readme.md.swp
+*.tmp

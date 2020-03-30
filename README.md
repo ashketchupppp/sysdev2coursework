@@ -1,5 +1,4 @@
 # Systems Development Group Coursework: Dartmouth 
-
 This is the main repository for our systems development coursework code.
 
 git is a version control system, github is the central place for storing git repositories.
@@ -26,15 +25,21 @@ then at the top menu you go to Repository > Push to push your changes to the bra
 
 then to merge your branch with master you should go to this page and make a pull request. (note: it's a request not a demand)
 
-# quick git command line guide
-how you should make changes to this git repository is:
- - make a NEW branch "git branch branch_name_here"
- - checkout the branch (start using it) "git checkout branch_name"
- - make sure you are not on the master branch "git status"
- - make your changes
- - add your changes to the branch "git add ."
- - commit your changes to the branch "git commit -m commit message here"
- - make a pull request to merge to with the master branch.
-   this is done on this page, not in the command line.
-   it is a request, your changes aren't immediately made, the owner of
-   this repository (chris) will review the change before it can be made.
+# how we are going to work
+we have to test each individual module that we write and each module has a specific file structure.
+in the example directory there is an example module, copy the structure of this module for any module that you write.
+
+michael marked me down for not using docstrings in the last piece of coursework so make sure every function
+has a docstring.
+ - Triple quotes are used even though the string fits on one line. This makes it easy to later expand it.
+ - The closing quotes are on the same line as the opening quotes. This looks better for one-liners.
+ - There's no blank line either before or after the docstring.
+ - The docstring is a phrase ending in a period. It prescribes the function or method's effect as a command ("Do this", "Return that"), not as a description; e.g. don't write "Returns the pathname ...".
+ - The one-line docstring should NOT be a "signature" reiterating the function/method parameters (which can be obtained by introspection). Don't do:
+more information here https://www.python.org/dev/peps/pep-0257/ (i use a docstring in the example module)
+
+
+# best practices
+here is a list of things which yu should do when you are working
+   1. work incrementally and commit often. large changes take a LONG time to review.
+   2. no need to add an "updated" version of file or something like that. just change the file.
