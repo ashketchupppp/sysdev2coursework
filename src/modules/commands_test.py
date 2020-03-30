@@ -1,7 +1,8 @@
 import unittest
 import os
-from commands import *
+from main import find_postcode_coordinate
 
+spam_loader = importlib.find_loader('spam')
 class TestCommandPostcodeFcuntion(unittest.TestCase):
     def test_valid_entry(self):
         """Test if expeted result is retuned with valid list."""
