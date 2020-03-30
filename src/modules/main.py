@@ -2,6 +2,7 @@ from modules.fileutil import fileutil
 from modules.csv import reader
 from modules.ui.ui import *
 from modules.data.search import search_list_dict
+import modules.commands as commands
 
 def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
     help_message = """The following is a list of valid inputs:
@@ -51,31 +52,3 @@ def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
         else:
             print("That is not a valid command. Type 'help' for a list of command.")
 
-def retrieve_crime_data(crime_data_list):
-    # prompt the user to input the following: lat, long and radius
-    # (pls use the ui.py module for prompting)    
-    # create a second crime data list, this is the list which will be returned
-    # go through the crime data list that is passed (crime_data_list)
-    #   each value which is within the radius the user specified is added to the new list we just created
-    # prompt the user to see if they want to sort the results 
-    # if they do then sort the results using the data sorting module
-    # prompt the user for a file name to write the data to
-    # write the data to a csv file using the csv writer module
-    pass
-
-def find_postcode_coordinate(postcodes):
-    """
-    Promts user for Postcode
-    Searches Postcode and prints coords
-    Prints erors if multiple values found or Postcode is not found
-    """
-    input = prompt("Please enter a Postcode")
-    search_result = search_list_dict(postcodes, input, "Postcode")
-    if search_result == [-1]:
-        print("No results found")
-        return False
-    if search_result == [-2]:
-        print("Multiple results found")
-        return False
-    print("Lattitude: " + search_result["ETRS89GD-Lat"] + " Longitude: " + search_result["ETRS89GD-Long"])
-    return True
