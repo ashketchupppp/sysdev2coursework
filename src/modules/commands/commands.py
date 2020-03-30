@@ -1,4 +1,5 @@
-from modules.ui import *
+from modules.ui.ui import *
+from modules.data.search import search_list_dict
 
 def retrieve_crime_data(crime_data_list):
     # prompt the user to input the following: lat, long and radius
@@ -13,11 +14,20 @@ def retrieve_crime_data(crime_data_list):
     pass
 
 def find_postcode_coordinate(postcodes):
-    # prompt the user to input the following: a postcode
-    # (pls use the ui.py module for prompting)
-    # use the search function in the data searching module to find a postcode
-    # if one is found
-    #   output the lat and long
-    # if one is not found
-    #   tell the user the postcode could not be found
-    pass
+    """
+    Promts user for Postcode
+    Searches Postcode and prints coords
+    Prints erors if multiple values found or Postcode is not found
+    """
+    input = prompt("Please enter a Postcode")
+    search_result = search_list_dict(postcodes, input, "Postcode")
+    if search_result == [-1]:
+        print("No results found")
+        return False
+    if search_result == [-2]:
+        print("Multiple results found")
+        return False
+    print("Lattitude: " + search_result["ETRS89GD-Lat"] + " Longitude: " + search_result["ETRS89GD-Long"])
+    return True
+    
+    
