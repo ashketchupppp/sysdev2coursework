@@ -1,6 +1,8 @@
-from modules.commands import commands 
 from modules.fileutil import fileutil 
-from modules.csv import reader 
+from modules.csv import reader
+from modules.ui.ui import *
+from modules.data.search import search_list_dict
+import modules.commands as commands
 
 def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
     help_message = """The following is a list of valid inputs:
