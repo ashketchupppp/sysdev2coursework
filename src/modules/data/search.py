@@ -1,4 +1,4 @@
-def search_dict(postcodes, search, key):
+def search_list_dict(postcodes, search, key):
     """
     Searches a list of dictionaries
     Three variables: a list of dictionaries, search value and key to search
