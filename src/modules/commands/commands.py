@@ -1,6 +1,10 @@
 from modules.ui import *
+import sys, os
+sys.path.append('../distance_between')
+import geodist
 
 def retrieve_crime_data(crime_data_list):
+    dist = geodist.distance((51.295341, 0.165940), (51.294180, 0.166670))
     # prompt the user to input the following: lat, long and radius
     # (pls use the ui.py module for prompting)    
     # create a second crime data list, this is the list which will be returned
@@ -10,7 +14,7 @@ def retrieve_crime_data(crime_data_list):
     # if they do then sort the results using the data sorting module
     # prompt the user for a file name to write the data to
     # write the data to a csv file using the csv writer module
-    pass
+    
 
 def find_postcode_coordinate(postcodes):
     # prompt the user to input the following: a postcode
