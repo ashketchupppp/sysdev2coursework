@@ -1,6 +1,31 @@
-def filterData(dictList, key, radius):
+if __name__ == "modules.data.filter":
+    from modules.ui.ui import *
+    from modules.data.search import *
+    from modules.data.filter import *
+    from modules.data.sort import *
+    from modules.distance_between.geodist import distance
+    from modules.csv.writer import *
+else:
+#Import libraries for testing
+    from ui.ui import *
+    from data.search import *
+    from data.filter import *
+    from data.sort import *
+    from csv.writer import *
+    from distance_between.geodist import distance
+    
+def filterData(dictList, postcodelatlng, radius, key):
     """Function to filter the given data using the given values."""
-    filteredDict = [d for d in dictList if d[key] <= radius]
-    return filteredDict
-    # this should use the distance between module to figure out if a coord is within the radius or not 
-    # read the git issue to see exactly what this needs to do im not typing it out again
+    result = []
+    for crime_record in dictList:
+        try:
+            crimelatlng = []
+            crimelatlng.append(float(crime_record["Latitude"]))
+            crimelatlng.append(float(crime_record["Longitude"]))
+            distance_between = distance(key, crimelatlng)
+            if int(distance_between) < radius:
+                result.append(crime_record.copy())
+        except:
+            error = 1
+    return result
+   

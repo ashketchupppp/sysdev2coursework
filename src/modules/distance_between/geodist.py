@@ -1,5 +1,5 @@
 # geogdist.py
-# Version 0.2
+# Version 0.3
 
 import math
 
@@ -33,10 +33,4 @@ def distance( latlngA, latlngB):
     d = math.sqrt( x*x + y*y ) * R
     return d
 
-#if __name__ == "__main__":
-    # Testing
-    # TODO: Please verify the function by providing suitable test cases and
-    # using asserts. The test should cover the cases your program is to deal
-    # with, e.g. do not verify the correct distance between New York and London
-    # For your testing allow a tolerance for the distance calculation as the
-    # calculation is an approximation.
+#testing in geodist_test.py

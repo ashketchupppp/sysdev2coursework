@@ -27,7 +27,7 @@ class TestModuleDistanceBetween(unittest.TestCase):
     def test_north_south_cord(self):
         """TTest to make sure co-ds furthest North and South in Devon and Cornwall return expected value within 0.1km"""
 
-        latlngA = {51.245284, -3.785560} # North Devon
+        latlngA = [51.245284, -3.785560] # North Devon
         latlngB = {49.959701, -5.206656} # South Conwall
         expectedOutput = 174.62
         actualOutput = distance(latlngA, latlngB)

@@ -4,13 +4,18 @@ if __name__ == "modules.commands":
     from modules.data.search import *
     from modules.data.filter import *
     from modules.data.sort import *
+    from modules.distance_between.geodist import distance
+    from modules.csv.writer import *
 else:
 #Import libraries for testing
     from ui.ui import *
     from data.search import *
     from data.filter import *
     from data.sort import *
-def retrieve_crime_data(postcodes):
+    from csv.writer import *
+    from distance_between.geodist import distance
+    
+def retrieve_crime_data(postcodes, crime_data):
     """
     Promts user for Postcode
     Searches Postcode and prints coords
@@ -27,13 +32,22 @@ def retrieve_crime_data(postcodes):
         return False
     lat = search_result["ETRS89GD-Lat"]
     long = search_result["ETRS89GD-Long"]
+    postcodelatlng = []
+    postcodelatlng.append(float(lat))
+    postcodelatlng.append(float(long))
+    print(postcodelatlng)
     print(lat + ", " + long)
     input = prompt("Please enter a search radius in km")
-    radius = input
+    radius = int(input)
     input = prompt("How would you like the data sorted?")
     key = input
     
-    
+    filtered_data = filterData(crime_data, postcodelatlng, radius, key)
+    filepath = "empty.csv"
+    input = prompt("What should the report be called?")
+    filepath = input + ".csv"
+    dict_to_csv(filepath, filtered_data)
+    print("Report created in " + filepath)
    
         
     # prompt the user to input the following: lat, long and radius

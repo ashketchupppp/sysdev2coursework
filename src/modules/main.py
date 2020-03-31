@@ -44,7 +44,7 @@ def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
             end_program = True
     
         elif user_input == "retrieve":
-            commands.retrieve_crime_data(current_data["postcodes"])
+            commands.retrieve_crime_data(current_data["postcodes"], current_data["crimedata"])
 
         elif user_input == "getcoord":
             commands.find_postcode_coordinate(current_data["postcodes"])
