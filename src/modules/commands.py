@@ -51,14 +51,14 @@ class CmdRetrieveCrimeData(Command):
             print("Latitude: " + result[0] + " Longitude: " + result[1])
             lat = result[0]
             long = result[1]
-        postcodelatlng = []
+        postcodelatlng = [] # name could include the o, its easier to read
         postcodelatlng.append(float(lat))
         postcodelatlng.append(float(long))
         print(postcodelatlng)
         print(lat + ", " + long)
         input = self.prompt("Please enter a search radius in km")
         radius = int(input)
-        filtered_data = filterData(crime_data, postcodelatlng, radius)
+        filtered_data = filterData(variables['crimedata'], postcodelatlng, radius)
         input = self.prompt("How would you like the data sorted? (crime category, date (recent first), distance)" )
         """if input == "crime category":
             key = "Crime type"

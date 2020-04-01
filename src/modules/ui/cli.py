@@ -151,14 +151,14 @@ class InteractiveCommandLine:
         """ Starts the cycle of input and command processing. """
         self.running = True
         print(self.welcomeMessage)
-        while self.running:
-            command = self.prompt()
+        while self.running:
+            command = self.prompt()
             try:
-                returnCode = self.processAllCommands(command)
-                except Exception as exceptionMessage:
-                    if str(exceptionMessage) == 'quit':
-                        self.running = False
-                    else:
-                        print(exceptionMessage)
-                print()
+                returnCode = self.processAllCommands(command)
+            except Exception as exceptionMessage:
+                if str(exceptionMessage) == 'quit':
+                    self.running = False
+                else:
+                    print(exceptionMessage)
+            print()
                 
