@@ -31,7 +31,7 @@ class CmdRetrieveCrimeData(Command):
     def __init__(self, commandLine):
         """ Constructor method. Calls parent class constructor. """
         helpmessage = "Search for crime data, save it to csv and optionally sort it."
-        Command.__init__(self, 'crimedata', ['crimedata'], commandLine, helpmessage)
+        Command.__init__(self, 'crimedata', ['crimedata', 'postcodes'], commandLine, helpmessage)
     
     def commandBody(self, variables):
         """ Docstrings woo """
@@ -42,15 +42,15 @@ class CmdRetrieveCrimeData(Command):
         """
 
         input = self.prompt("Please enter a Postcode")
-        search_result = search_list_dict(postcodes, input, "Postcode")
-        if search_result == [-1]:
+        result = find_postcode_coordinate(input, variables['postcodes'])
+        if result == -1:
             print("No results found")
-            return False
-        if search_result == [-2]:
+        elif result == -2:
             print("Multiple results found")
-            return False
-        lat = search_result["ETRS89GD-Lat"]
-        long = search_result["ETRS89GD-Long"]
+        else:
+            print("Latitude: " + result[0] + " Longitude: " + result[1])
+            lat = result[0]
+            long = result[1]
         postcodelatlng = []
         postcodelatlng.append(float(lat))
         postcodelatlng.append(float(long))
@@ -60,7 +60,7 @@ class CmdRetrieveCrimeData(Command):
         radius = int(input)
         filtered_data = filterData(crime_data, postcodelatlng, radius)
         input = self.prompt("How would you like the data sorted? (crime category, date (recent first), distance)" )
-        if input == "crime category":
+        """if input == "crime category":
             key = "Crime type"
             reverse = False
         elif input == "date":
@@ -68,7 +68,7 @@ class CmdRetrieveCrimeData(Command):
             reverse = True
         elif input == "distance":
             key = "distance_between"
-            reverse = False
+            reverse = False"""
         
         sorted_data = listOfDictSort(filtered_data, key, reverse, dateFormat="")
         
