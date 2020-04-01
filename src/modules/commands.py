@@ -25,7 +25,8 @@ def find_postcode_coordinate(postcode, data):
         return -1
     elif search_result == [-2]:
         return -2
-    return search_result["ETRS89GD-Lat"] + search_result["ETRS89GD-Long"]
+    lat_long = [search_result["ETRS89GD-Lat"], search_result["ETRS89GD-Long"]]
+    return lat_long
 
 class CmdRetrieveCrimeData(Command):
     def __init__(self, commandLine):
@@ -58,4 +59,4 @@ class CmdPostcodeFromCoordinate(Command):
         elif result == -2:
             print("Multiple results found")
         else:
-            print("Latitude: " + result["ETRS89GD-Lat"] + " Longitude: " + result["ETRS89GD-Long"])
+            print("Latitude: " + result[0] + " Longitude: " + result[1])
