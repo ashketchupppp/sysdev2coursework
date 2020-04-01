@@ -40,7 +40,7 @@ class CmdRetrieveCrimeData(Command):
         Prints erors if multiple values found or Postcode is not found
         """
 
-        input = prompt("Please enter a Postcode")
+        input = self.prompt("Please enter a Postcode")
         search_result = search_list_dict(postcodes, input, "Postcode")
         if search_result == [-1]:
             print("No results found")
@@ -55,10 +55,10 @@ class CmdRetrieveCrimeData(Command):
         postcodelatlng.append(float(long))
         print(postcodelatlng)
         print(lat + ", " + long)
-        input = prompt("Please enter a search radius in km")
+        input = self.prompt("Please enter a search radius in km")
         radius = int(input)
         filtered_data = filterData(crime_data, postcodelatlng, radius)
-        input = prompt("How would you like the data sorted? (crime category, date (recent first), distance)" )
+        input = self.prompt("How would you like the data sorted? (crime category, date (recent first), distance)" )
         if input == "crime category":
             key = "Crime type"
             reverse = False
@@ -73,7 +73,7 @@ class CmdRetrieveCrimeData(Command):
         
         
         filepath = "empty.csv"
-        input = prompt("What should the report be called?")
+        input = self.prompt("What should the report be called?")
         filepath = input + ".csv"
         dict_to_csv(filepath, sorted_data)
         print("Report created in " + filepath)
