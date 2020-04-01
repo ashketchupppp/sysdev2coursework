@@ -58,8 +58,7 @@ class TestSearchFcuntion(unittest.TestCase):
         actualOutput = search_list_dict(movies, "Colonia", "nothere")
         expectedOutput = [-1]
         self.assertEqual(actualOutput, expectedOutput)
-
+        
 # this is required to be able to run the tests
 if __name__ == '__main__':
     unittest.main()
-

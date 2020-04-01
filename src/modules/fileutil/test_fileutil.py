@@ -37,7 +37,7 @@ class TestRecursiveFileSearch(unittest.TestCase):
     def test_filter(self):
         """Test to make sure it correctly filters some files out"""
         pass
-
+    
 # this is required to be able to run the tests
 if __name__ == '__main__':
     unittest.main()
