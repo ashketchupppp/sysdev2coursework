@@ -39,7 +39,7 @@ class TestModuleCsvToDict(unittest.TestCase):
         actualOutput = dict_to_csv(validCsvFilename, validDict)
         expectedOutput = [-1]
         self.assertEqual(actualOutput, expectedOutput)
-
+        
 # this is required to be able to run the tests
 if __name__ == '__main__':
     unittest.main()

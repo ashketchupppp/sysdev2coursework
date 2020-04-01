@@ -1,11 +1,12 @@
 #If running as main program import libraries relative to crime_data
 if __name__ == "modules.commands":
-    from modules.ui.ui import *
+    from modules.ui.cli import *
     from modules.data.search import *
 else:
 #Import libraries for testing
-    from ui.ui import *
+    from ui.cli import *
     from data.search import *
+
 def retrieve_crime_data(crime_data_list):
     # prompt the user to input the following: lat, long and radius
     # (pls use the ui.py module for prompting)    
@@ -18,20 +19,43 @@ def retrieve_crime_data(crime_data_list):
     # write the data to a csv file using the csv writer module
     pass
 
-def find_postcode_coordinate(postcodes):
-    """
-    Promts user for Postcode
-    Searches Postcode and prints coords
-    Prints erors if multiple values found or Postcode is not found
-    """
-
-    input = prompt("Please enter a Postcode")
-    search_result = search_list_dict(postcodes, input, "Postcode")
+def find_postcode_coordinate(postcode, data):
+    search_result = search_list_dict(data, postcode, "Postcode")
     if search_result == [-1]:
-        print("No results found")
-        return False
-    if search_result == [-2]:
-        print("Multiple results found")
-        return False
-    print("Lattitude: " + search_result["ETRS89GD-Lat"] + " Longitude: " + search_result["ETRS89GD-Long"])
+        return -1
+    elif search_result == [-2]:
+        return -2
     return search_result["ETRS89GD-Lat"] + search_result["ETRS89GD-Long"]
+
+class CmdRetrieveCrimeData(Command):
+    def __init__(self, commandLine):
+        """ Constructor method. Calls parent class constructor. """
+        helpmessage = "Search for crime data, save it to csv and optionally sort it."
+        Command.__init__(self, 'crimedata', ['crimedata'], commandLine, helpmessage)
+    
+    def commandBody(self, variables):
+        """ Docstrings woo """
+        # put your bullshit here
+        pass
+
+class CmdPostcodeFromCoordinate(Command):
+    def __init__(self, commandLine):
+        """ Constructor method. Calls parent class constructor. """
+        helpMessage = 'Search for the co-ordinates of a postcode'
+        Command.__init__(self, 'postcode', ['postcodes'], commandLine, helpMessage)
+        
+    def commandBody(self, variables):
+        """
+        Promts user for Postcode
+        Searches Postcode and prints coords
+        Prints erors if multiple values found or Postcode is not found
+        """
+
+        input = self.prompt("Please enter a Postcode")
+        result = find_postcode_coordinate(input, variables['postcodes'])
+        if result == -1:
+            print("No results found")
+        elif result == -2:
+            print("Multiple results found")
+        else:
+            print("Latitude: " + result["ETRS89GD-Lat"] + " Longitude: " + result["ETRS89GD-Long"])
