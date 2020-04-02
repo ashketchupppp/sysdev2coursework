@@ -158,5 +158,7 @@ class InteractiveCommandLine:
             except Exception as exceptionMessage:
                 if str(exceptionMessage) == 'quit':
                     self.running = False
+                else:
+                    print(exceptionMessage)
             print()
                 
