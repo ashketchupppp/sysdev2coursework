@@ -25,6 +25,7 @@ def filterData(dictList, postcodelatlng, radius):
             distance_between = distance(postcodelatlng, crimelatlng)
             if int(distance_between) < radius:
                 result.append(crime_record.copy())
+                crime_record.update( {'Distance' : distance_between} )
         except:
             error = 1
     return result

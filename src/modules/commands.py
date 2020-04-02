@@ -59,16 +59,16 @@ class CmdRetrieveCrimeData(Command):
         input = self.prompt("Please enter a search radius in km")
         radius = int(input)
         filtered_data = filterData(variables['crimedata'], postcodelatlng, radius)
-        input = self.prompt("How would you like the data sorted? (crime category, date (recent first), distance)" )
-        """if input == "crime category":
+        input = self.prompt("How would you like the data sorted? By crime category, date (recent first) or distance?" )
+        if input == "crime category":
             key = "Crime type"
             reverse = False
         elif input == "date":
             key = "Month"
             reverse = True
         elif input == "distance":
-            key = "distance_between"
-            reverse = False"""
+            key = "Distance"
+            reverse = False
         
         sorted_data = listOfDictSort(filtered_data, key, reverse, dateFormat="")
         
