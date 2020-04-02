@@ -1,3 +1,6 @@
+import traceback
+import sys
+
 class Command:
     """ Command class. All commands must inherit from this class.
         When a command is called by the user, its corresponding
@@ -159,6 +162,6 @@ class InteractiveCommandLine:
                 if str(exceptionMessage) == 'quit':
                     self.running = False
                 else:
-                    print(exceptionMessage)
+                    traceback.print_exc()
             print()
                 
