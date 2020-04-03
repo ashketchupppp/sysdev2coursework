@@ -154,6 +154,7 @@ class InteractiveCommandLine:
         """ Starts the cycle of input and command processing. """
         self.running = True
         print(self.welcomeMessage)
+        self.callCommand('help')
         while self.running:
             command = self.prompt()
             try:
