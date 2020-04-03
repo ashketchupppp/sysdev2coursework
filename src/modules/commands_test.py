@@ -13,7 +13,7 @@ class TestCommandPostcodeFcuntion(unittest.TestCase):
         """Test if expeted result is retuned with valid list."""
         postcode = "DT1 1AD"
         actualOutput = find_postcode_coordinate(postcode, postcodes)
-        expectedOutput = ("+50.71167397", "-2.43695132")
+        expectedOutput = ["+50.71167397", "-2.43695132"]
         self.assertEqual(actualOutput, expectedOutput)
         
     def test_invalid_entry(self):
