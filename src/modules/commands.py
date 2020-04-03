@@ -15,9 +15,6 @@ else:
     from csv.writer import *
     from distance_between.geodist import distance
 
-def retrieve_crime_data(crime_data_list):
-    pass
-
 def find_postcode_coordinate(postcode, data):
     search_result = search_list_dict(data, postcode, "Postcode")
     if search_result == [-1]:
@@ -76,26 +73,3 @@ class CmdRetrieveCrimeData(Command):
             filepath = input + ".csv"
             dict_to_csv(filepath, sorted_data)
             print("Report created in " + filepath)
-        
-
-class CmdPostcodeFromCoordinate(Command):
-    def __init__(self, commandLine):
-        """ Constructor method. Calls parent class constructor. """
-        helpMessage = 'Search for the co-ordinates of a postcode'
-        Command.__init__(self, 'postcode', ['postcodes'], commandLine, helpMessage)
-        
-    def commandBody(self, variables):
-        """
-        Promts user for Postcode
-        Searches Postcode and prints coords
-        Prints erors if multiple values found or Postcode is not found
-        """
-
-        input = self.prompt("Please enter a Postcode")
-        result = find_postcode_coordinate(input, variables['postcodes'])
-        if result == -1:
-            print("No results found")
-        elif result == -2:
-            print("Multiple results found")
-        else:
-            print("Latitude: " + result[0] + " Longitude: " + result[1])
