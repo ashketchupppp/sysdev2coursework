@@ -156,13 +156,17 @@ class InteractiveCommandLine:
         print(self.welcomeMessage)
         self.callCommand('help')
         while self.running:
-            command = self.prompt()
             try:
+                command = self.prompt()
                 returnCode = self.processAllCommands(command)
-            except Exception as exceptionMessage:
-                if str(exceptionMessage) == 'quit':
+            except KeyboardInterrupt as exception:
+                # do nothing for a keyboard interrupt
+                pass
+            except Exception as exception:
+                if str(exception) == 'quit':
                     self.running = False
                 else:
+                    # unknown error, print it
                     traceback.print_exc()
             print()
                 

@@ -2,7 +2,6 @@ from modules.fileutil import fileutil
 from modules.csv import reader
 from modules.ui.cli import InteractiveCommandLine
 from modules.data.search import search_list_dict
-from modules.commands import CmdPostcodeFromCoordinate
 from modules.commands import CmdRetrieveCrimeData
 
 def load_crimedata(full_path_to_crime_data_folder):
@@ -24,8 +23,6 @@ def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
     cmdLine.addData('crimedata', load_crimedata(full_path_to_crime_data_folder))
     cmdLine.addData('postcodes', load_postcodeData(full_path_to_devon_postcodes))
     cmdLine.setWelcome("Welcome to the Crime Data search tool")
-    cmdPostcodeRetrieve = CmdPostcodeFromCoordinate(cmdLine)
-    cmdLine.addCommand(cmdPostcodeRetrieve)
     cmdCrimeDataRetireve = CmdRetrieveCrimeData(cmdLine)
     cmdLine.addCommand(cmdCrimeDataRetireve)
     
