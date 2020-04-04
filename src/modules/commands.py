@@ -50,26 +50,32 @@ class CmdRetrieveCrimeData(Command):
             postcodelatlong = []
             postcodelatlong.append(float(lat))
             postcodelatlong.append(float(long))
-            input = self.prompt("Please enter a search radius in km")
-            radius = int(input)
-            filtered_data = filterData(variables['crimedata'], postcodelatlong, radius)
-            input = self.prompt("How would you like the data sorted? By crime category, date (recent first) or distance?" )
-            
-            if input == "crime category":
-                key = "Crime type"
-                reverse = False
-            elif input == "date":
-                key = "Month"
-                reverse = True
-            elif input == "distance":
-                key = "Distance"
-                reverse = False
-            
-            sorted_data = listOfDictSort(filtered_data, key, reverse, dateFormat="")
-            
-            
-            filepath = "empty.csv"
-            input = self.prompt("What should the report be called?")
-            filepath = input + ".csv"
-            dict_to_csv(filepath, sorted_data)
-            print("Report created in " + filepath)
+        input = self.prompt("Please enter a search radius in km")
+        radius = int(input)
+        filtered_data = filterData(variables['crimedata'], postcodelatlong, radius)
+        while True:
+            try:
+                input = self.prompt("How would you like the data sorted? By crime category, date (recent first) or distance?" )
+            except ValueError:
+                print("Sorry, that is an invalid sort type")
+                continue
+            if input not in ("crime category", "date", "distance"):
+                print("Please enter a valid sort type")
+            else:
+                break
+        
+        if input == "crime category":
+            key = "Crime type"
+            reverse = False
+        elif input == "date":
+            key = "Month"
+            reverse = True
+        elif input == "distance":
+            key = "Distance"
+            reverse = False
+        sorted_data = listOfDictSort(filtered_data, key, reverse, dateFormat="")
+        filepath = "empty.csv"
+        input = self.prompt("What should the report be called?")
+        filepath = input + ".csv"
+        dict_to_csv(filepath, sorted_data)
+        print("Report created in " + filepath)
