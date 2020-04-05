@@ -2,6 +2,10 @@ if __name__ == "modules.data.filter":
     from modules.distance_between.geodist import distance
 else:
 #Import libraries for testing
+    import sys
+    import os
+    sys.path.insert(0, os.getcwd() + '/../')
+    
     from distance_between.geodist import distance
     
 def filterData(dictList, postcodelatlng, radius):

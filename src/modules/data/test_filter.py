@@ -1,5 +1,5 @@
 import unittest
-from data.filter import filterData
+from filter import filterData
 #Test requires importing functions for the main function to work
 #These functions are all individualy tested
 #Dictlist is small sample of test Data
@@ -18,7 +18,7 @@ class TestFilter(unittest.TestCase):
         postcodelatlng = [50.827973, -4.543798]
         radius = 10
         dictList = get_dict_list()
-        actualOutput = filterData(dddictList, postcodelatlng, radius)
+        actualOutput = filterData(dictList, postcodelatlng, radius)
         expectedOutput = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723', 'Distance': 0.3057864802417903},
                           {'Crime ID': '2', 'Longitude': '-4.544117', 'Latitude': '50.827973', 'Distance': 0.022405434837250257},
                           {'Crime ID': '3', 'Longitude': '-4.548403', 'Latitude': '50.828185', 'Distance': 0.32429614137803187},
