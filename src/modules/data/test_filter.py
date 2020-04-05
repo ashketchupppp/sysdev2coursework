@@ -18,7 +18,7 @@ class TestFilter(unittest.TestCase):
         postcodelatlng = [50.827973, -4.543798]
         radius = 10
         dictList = get_dict_list()
-        actualOutput = filterData(dictList, postcodelatlng, radius)
+        actualOutput = filterData(dddictList, postcodelatlng, radius)
         expectedOutput = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723', 'Distance': 0.3057864802417903},
                           {'Crime ID': '2', 'Longitude': '-4.544117', 'Latitude': '50.827973', 'Distance': 0.022405434837250257},
                           {'Crime ID': '3', 'Longitude': '-4.548403', 'Latitude': '50.828185', 'Distance': 0.32429614137803187},
