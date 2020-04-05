@@ -1,5 +1,5 @@
 import unittest
-from data.filter import filterData
+from filter import filterData
 #Test requires importing functions for the main function to work
 #These functions are all individualy tested
 #Dictlist is small sample of test Data

@@ -1,17 +1,11 @@
 if __name__ == "modules.data.filter":
-    from modules.ui.cli import *
-    from modules.data.search import *
-    from modules.data.filter import *
-    from modules.data.sort import *
     from modules.distance_between.geodist import distance
-    from modules.csv.writer import *
 else:
 #Import libraries for testing
-    from ui.cli import *
-    from data.search import *
-    from data.filter import *
-    from data.sort import *
-    from csv.writer import *
+    import sys
+    import os
+    sys.path.insert(0, os.getcwd() + '/../')
+    
     from distance_between.geodist import distance
     
 def filterData(dictList, postcodelatlng, radius):
