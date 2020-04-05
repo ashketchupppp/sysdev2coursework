@@ -1,4 +1,4 @@
-"""NOT COMPLETE - GET ERROR SAYING MODULE UI CANNOT BE FOUND"""
+"""USE JACOB's ONE FROM HIS NEW PR"""
 
 import unittest
 import os
