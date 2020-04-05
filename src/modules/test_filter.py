@@ -3,16 +3,21 @@ from data.filter import filterData
 #Test requires importing functions for the main function to work
 #These functions are all individualy tested
 #Dictlist is small sample of test Data
-dictList = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723'},
+def get_dict_list():
+    """Small sample of test data, individually checked"""
+    test_data = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723'},
         {'Crime ID': '2', 'Longitude': '-4.544117', 'Latitude': '50.827973'},
         {'Crime ID': '3', 'Longitude': '-4.548403', 'Latitude': '50.828185'},
         {'Crime ID': '4', 'Longitude': '-4.551129', 'Latitude': '50.828441'},
         {'Crime ID': '5', 'Longitude': '-4.551129', 'Latitude': '50.828441'},]
+    return test_data
+
 class TestFilter(unittest.TestCase):
     def test_working_multiple(self):
         """Testing that the filter return the expected results with valid data"""
         postcodelatlng = [50.827973, -4.543798]
         radius = 10
+        dictList = get_dict_list()
         actualOutput = filterData(dictList, postcodelatlng, radius)
         expectedOutput = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723', 'Distance': 0.3057864802417903},
                           {'Crime ID': '2', 'Longitude': '-4.544117', 'Latitude': '50.827973', 'Distance': 0.022405434837250257},
@@ -23,6 +28,7 @@ class TestFilter(unittest.TestCase):
         
     def test_radius(self):
         """Testing that the filter returns empty list when radius is 0"""
+        dictList = get_dict_list()
         postcodelatlng = [50.827974, -4.543798]
         radius = 0
         actualOutput = filterData(dictList, postcodelatlng, radius)
@@ -31,6 +37,7 @@ class TestFilter(unittest.TestCase):
     
     def test_working_single(self):
         """Testing that the filter returns the expected results with only one input"""
+        dictList = get_dict_list()
         dictList = [{'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723'}]
         postcodelatlng = [51.830723, -4.543798]
         radius = 1000
@@ -58,6 +65,7 @@ class TestFilter(unittest.TestCase):
         
     def test_not_list(self):
         """Testing that empty list retunred if input is not a list - not error"""
+        dictList = get_dict_list()
         dictList = {'Crime ID': '1', 'Longitude': '-4.543798', 'Latitude': '50.830723'}
         postcodelatlng = [50.830723, -4.543798]
         radius = 1000
