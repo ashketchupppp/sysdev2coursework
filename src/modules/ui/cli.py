@@ -165,6 +165,8 @@ class InteractiveCommandLine:
             except Exception as exception:
                 if str(exception) == 'quit':
                     self.running = False
+                elif str(exception) == 'restart':
+                    pass
                 else:
                     # unknown error, print it
                     traceback.print_exc()
