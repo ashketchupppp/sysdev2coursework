@@ -19,11 +19,18 @@ def load_postcodeData(full_path_to_devon_postcodes):
     return postcodes
     
 def main(full_path_to_crime_data_folder, full_path_to_devon_postcodes):
+    # create the command line
     cmdLine = InteractiveCommandLine()
+    
+    # add the crime and postcode data
     cmdLine.addData('crimedata', load_crimedata(full_path_to_crime_data_folder))
     cmdLine.addData('postcodes', load_postcodeData(full_path_to_devon_postcodes))
-    cmdLine.setWelcome("Welcome to the Crime Data search tool")
-    cmdCrimeDataRetireve = CmdRetrieveCrimeData(cmdLine)
-    cmdLine.addCommand(cmdCrimeDataRetireve)
     
+    # set the welcome message
+    cmdLine.setWelcome("Welcome to the Crime Data search tool")
+    
+    # add the CmdRetrieveCrimeData command to the command line
+    cmdLine.addCommand(CmdRetrieveCrimeData(cmdLine))
+    
+    # start the command line
     cmdLine.run()

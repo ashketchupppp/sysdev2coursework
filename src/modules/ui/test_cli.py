@@ -6,6 +6,10 @@ from cli import CmdRestart
 
 class CommandForTests(Command):
     def __init__(self, commandLine, variablesToRequest=[]):
+        """ Constructor. Calls the Command parent class's constructor. 
+            Stores some data by default to get some diagnostics of how
+            the command has been used so we can determine if some tests
+            have worked correctly or not. """
         Command.__init__(self, 'test', variablesToRequest, commandLine)
         self.called = False
         self.gotData = False
@@ -101,21 +105,32 @@ class TestCommandLine(unittest.TestCase):
     def test_getRequestedVariables(self):
         """ Ensure that the variables requested from the command line
             are recieved when requested. """
+        # create command line and add data to it 
         cmdLine = InteractiveCommandLine()
         cmdLine.addData('testdata', 1)
         cmdLine.addData('testdata2', 2)
+        
+        # setup the data request
         requested = ['testdata', 'testdata2']
         result = cmdLine.getRequestedVariables(requested)
+        
+        # assert the correct result
         self.assertEqual(1, result['testdata'])
         self.assertEqual(2, result['testdata2'])
         
     def test_commandRecievesRequestedData(self):
         """ Ensure that the command gets the data from the command lines
             data dictionary that it is set to request """
+        # create command line and add data to it
         cmdLine = InteractiveCommandLine()
         cmdLine.addData('testdataname', 'testdata')
+        
+        # create command and add it to command line
         testCmd = CommandForTests(cmdLine, ['testdataname'])
         cmdLine.addCommand(testCmd)
+        
+        # call the command and assert that it recieved the data
+        # using the diagnostic variables in the test command
         cmdLine.callCommand('test')
         self.assertEqual(testCmd.called, True)
         self.assertEqual(testCmd.gotData, True)
