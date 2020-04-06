@@ -1,5 +1,5 @@
 from modules.fileutil import fileutil 
-from modules.csv import reader
+from modules.fileread import reader
 from modules.ui.cli import InteractiveCommandLine
 from modules.data.search import search_list_dict
 from modules.commands import CmdRetrieveCrimeData

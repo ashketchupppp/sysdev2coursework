@@ -1,8 +1,10 @@
 import unittest
 import os
+import sys
 from writer import *
+sys.path.insert(0, os.getcwd() + '/../')
 #Helper function to read files from disk to dict, has its own tests
-from reader import csv_to_dict as fileReaderHelper
+from fileread.reader import csv_to_dict as fileReaderHelper
 
 
 class TestModuleCsvToDict(unittest.TestCase):
