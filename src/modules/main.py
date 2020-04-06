@@ -8,7 +8,7 @@ def load_crimedata(full_path_to_crime_data_folder):
     # search the provided folder for crime data
     crime_data_csv_files = fileutil.recursive_search(full_path_to_crime_data_folder, "*.csv")
     crime_data = []
-    # load all of the data from the csv files
+    # load all of the data from the csv files and put them in one list
     for csvfile in crime_data_csv_files:
         crime_data = crime_data + reader.csv_to_dict(csvfile)
     return crime_data
