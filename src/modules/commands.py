@@ -65,17 +65,36 @@ class CmdRetrieveCrimeData(Command):
             
             # if we get to here then the radius is valid, call the filter function
             filtered_data = filterData(variables['crimedata'], [float(result[0]), float(result[1])], radius)
-            input = self.prompt('How would you like the data sorted? By "crime category", "date" (recent first), "distance" or "no sort"?' )
-            # setup the valid values and check against them
-            valid_values = {'crime cateogry':['Crime type', False], 'date' : ['Month', True], 'distance' : ['Distance', False], 'no sort':False}
-            
-            if input not in valid_values:
-                print('That was not one of "crime category", "date" or "distance"')
+            input = self.prompt('''How would you like the data sorted? Enter the number you would like to select.
+1. crime category
+2. date (most recent first)
+3. distance
+4. no sort''')
+            # check it is a number
+            try:
+                numberSelected = int(input) - 1
+            except:
+                print('That is not a number.')
                 raise Exception('restart')
-            elif valid_values[input] != False:
-                # sort the data
-                sorted_data = listOfDictSort(filtered_data, valid_values[input][0], valid_values[input][1], dateFormat="")
             
+            # check it is a valid number
+            if numberSelected > 3 or numberSelected < 0:
+                print('That is not a number on the list.')
+                raise Exception('restart')
+            
+            # setup the valid values and check against them
+            data_field_values = ['Crime type', 'Month', 'Distance']
+            data_field_sort_direction = [False, True, False]
+            sorted_data = filtered_data
+            if numberSelected == 3:
+                sorted_data = filtered_data    
+            elif numberSelected == 0 or numberSelected == 2:
+                # sorting by non-date values
+                sorted_data = listOfDictSort(filtered_data, data_field_values[numberSelected], reverse = data_field_sort_direction[numberSelected], dateFormat="")
+            elif numberSelected == 1:
+                # sorting by date value
+                sorted_data = listOfDictSort(filtered_data, data_field_values[numberSelected], reverse = data_field_sort_direction[numberSelected], dateFormat="%Y-%m")
+            print(len(sorted_data))
             # save the report to csv
             filepath = "default.csv"
             input = self.prompt("What should the report be called?")
