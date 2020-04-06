@@ -8,7 +8,7 @@ def directoryCreatorHelper(dirs, filelist):
     cwd = os.getcwd()
     for dir in dirs:
         try:
-            os.makedirs('{}/{}'.format(cwd, dir))
+            os.makedirs(f'{cwd}/{dir}')
         except Exception as e:
             # dir already exists
             print(e)

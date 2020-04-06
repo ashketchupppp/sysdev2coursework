@@ -15,8 +15,8 @@ postcodes_file_name = 'postcodes.csv'
 # |  +--<crime_data_folder>
 
 # setup the directories
-crime_data_folder = '{}/{}'.format(data_folder, crime_data_folder)
-postcodes_csv = '{}/{}/{}'.format(data_folder, postcodes_folder, postcodes_file_name)
+crime_data_folder = f'{data_folder}/{crime_data_folder}'
+postcodes_csv = f'{data_folder}/{postcodes_folder}/{postcodes_file_name}'
 
 # call main
 main(crime_data_folder, postcodes_csv)

@@ -80,7 +80,7 @@ class CmdHelp(Command):
             # use commandLine object reference to get list of commands
             for cmd in self.commandLine.commands:
                 # print correctly
-                print('{} - {}'.format(cmd, self.commandLine.commands[cmd].description))
+                print(f'{cmd} - {self.commandLine.commands[cmd].description}')
             return 'success'
         except:
             return 'failure'
