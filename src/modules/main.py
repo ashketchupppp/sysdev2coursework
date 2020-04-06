@@ -6,7 +6,7 @@ from modules.commands import CmdRetrieveCrimeData
 
 def load_crimedata(full_path_to_crime_data_folder):
     # search the provided folder for crime data
-    crime_data_csv_files = fileutil.recursive_search(full_path_to_crime_data_folder, "*.csv")
+    crime_data_csv_files = fileutil.find_files(full_path_to_crime_data_folder, ".csv")
     crime_data = []
     # load all of the data from the csv files and put them in one list
     for csvfile in crime_data_csv_files:

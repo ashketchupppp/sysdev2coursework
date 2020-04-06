@@ -1,5 +1,11 @@
 This is a guide to configuring and using your crime data report generator.
 
+# Running the code
+
+Make sure you have python installed on your system.
+Run the following command whilst in the same directory as the crime_data.py file
+"python crime_data.py"
+
 # Configuration Settings
 
 By default there are four configuration settings in the crime_data.py file.
