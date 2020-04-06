@@ -6,32 +6,45 @@ class Command:
         When a command is called by the user, its corresponding
         command class is found and calls the call method. """
     def __init__(self, name, variablesToRequest, commandLine, description=''):
+        """ Constructor Method """
+        # this is the string used to call the command on the commandline
         self.name = name
+        # when the command is called it will request some variables by name
+        # from the commandlineinterpreters' data dictionary
         self.variablesToRequest = variablesToRequest
+        # maintain a reference to the commandline so we can interact with it
+        # and call some methods
         self.commandLine = commandLine
+        # description of the command to be printed by the help command
         self.description = description
     
     def call(self):
         """ Sets everything up for the command. Gets variables from the
             command line.""" 
+        # request some variables and call the commandBody
         requestedVariables = self.commandLine.getRequestedVariables(self.variablesToRequest) 
+        # return the result
         result = self.commandBody(requestedVariables) 
         return result
 
     def commandBody(self, variables):
         """ Command child classes must override this method. """
+        # do nothing
         return 0
         
     def prompt(self, message):
         """ Prompts user for input. """
+        # standard way of getting input from the user
         print(message)
         userinput = input(' > ')
-        # check for speical commands, quit and restart
+        # check for speical commands, quit and restart so they can always
+        # be called whenever the user is prompted for input
         self.commandLine.processSpecialCommands(userinput)
         return userinput
     
 class CmdQuit(Command):
     def __init__(self, commandLine):
+        """ Constructor. Calls the Command parent class's constructor """
         Command.__init__(self, 'quit', [], commandLine, 'Exits the whole program')
         
     def commandBody(self, variables):
@@ -44,6 +57,7 @@ class CmdQuit(Command):
         
 class CmdRestart(Command):
     def __init__(self, commandLine):
+        """ Constructor. Calls the Command parent class's constructor """
         Command.__init__(self, 'restart', [], commandLine, 'Exits the current command')
     
     def commandBody(self, variables):
@@ -57,12 +71,15 @@ class CmdRestart(Command):
         
 class CmdHelp(Command):
     def __init__(self, commandLine):
+        """ Constructor. Calls the Command parent class's constructor """
         Command.__init__(self, 'help', [], commandLine, 'Outputs this help message')
     
     def commandBody(self, variables):
         """ Print a list of commands and return a help code to the main program. """
         try:
+            # use commandLine object reference to get list of commands
             for cmd in self.commandLine.commands:
+                # print correctly
                 print('{} - {}'.format(cmd, self.commandLine.commands[cmd].description))
             return 'success'
         except:
@@ -73,10 +90,15 @@ class InteractiveCommandLine:
         commands functions and error handling. """
     def __init__(self):
         """ Constructor function to initialise the objects' state. """
+        # used to control the loop in the run method
         self.running = False
+        # dictionary of commands
         self.commands = {}
+        # dictionary of data that is available for the commands to request
         self.data = {}
+        # welcome message outputted to the user when the command line is started
         self.welcomeMessage = ""
+        # list of special commands which can be called from the Command.prompt method
         self.specialCommands = ['quit', 'restart']
         
         # add the default commands
@@ -128,6 +150,7 @@ class InteractiveCommandLine:
         """ Method to process the users input and execute a command if necessary. """
         returnCode = ''
         if self.commandExists(userinput):
+            # find the command to be called and then call it
             for cmd in self.commands:
                 if userinput == cmd:
                     returnCode = self.callCommand(cmd)
@@ -138,16 +161,17 @@ class InteractiveCommandLine:
     def processSpecialCommands(self, userinput):
         """ Method to process the users input and execute a special command if necessary.
             This is for use inside custom commands only. Use processAllCommands for the top level
-            command prompt. """
+            command prompt. This method checks the special commands list instead of all commands."""
         returnCode = ''
         if self.commandExists(userinput):
+            # find the command to be called and then call it
             for cmd in self.specialCommands:
                 if userinput == cmd:
                     returnCode = self.callCommand(cmd)
         return returnCode
             
     def callCommand(self, commandName):
-        """ Calls a command by name """
+        """ Finds and calls a command by name """
         return self.commands[commandName].call()
 
     def run(self):
@@ -157,6 +181,7 @@ class InteractiveCommandLine:
         self.callCommand('help')
         while self.running:
             try:
+                # prompt for input and process it
                 command = self.prompt()
                 returnCode = self.processAllCommands(command)
             except KeyboardInterrupt as exception:
@@ -164,11 +189,15 @@ class InteractiveCommandLine:
                 pass
             except Exception as exception:
                 if str(exception) == 'quit':
+                    # if exception is a quit exception then exit the program
                     self.running = False
                 elif str(exception) == 'restart':
+                    # if exception is a restart exception then do nothing
+                    # the exception being raised is the thing which restarted
+                    # the program in the first place, nothing more to do here
                     pass
                 else:
-                    # unknown error, print it
+                    # unknown error, print it to help diagnose issues
                     traceback.print_exc()
             print()
                 
