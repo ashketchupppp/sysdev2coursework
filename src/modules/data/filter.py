@@ -9,7 +9,7 @@ else:
     from geodist.geodist import distance
     
 def filterData(dictList, postcodelatlng, radius):
-    """Function to filter the given data using the given values."""
+    """Function to filter the given list of dictionaries by the user defined radius from the centre coordinate of a postcode."""
     result = []
     #For each dict in the list
     for crime_record in dictList:

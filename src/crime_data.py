@@ -1,4 +1,5 @@
 from modules.main import * 
+import os
 
 # change these values to change the folders and files
 # the program will use to load the postcode and crime data from

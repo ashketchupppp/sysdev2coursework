@@ -33,11 +33,14 @@ class CmdRetrieveCrimeData(Command):
     
     def commandBody(self, variables):
         """
-        Promts user for Postcode
-        Searches Postcode and prints coords
-        Prints erors if multiple values found or Postcode is not found
+        Prompts user for a postcode and finds centre coordinate of that postcode
+        Prompts user for a radius and filters crime data within that radius of postcode centre
+        Prompts user for method of sorting data
+        Prompts user for file name for CSV
+        Results are outputted into CSV with specified file name
+        Uses are re-prompted if invalid information is inputted
         """
-
+        
         # prompt for a postcode
         input = self.prompt("Please enter a Postcode")
         result = find_postcode_coordinate(input, variables['postcodes'])
