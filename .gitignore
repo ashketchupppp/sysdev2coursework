@@ -3,3 +3,5 @@
 ~$eReport.docx
 .readme.md.swp
 *.tmp
+*.pyc
+__pycache__

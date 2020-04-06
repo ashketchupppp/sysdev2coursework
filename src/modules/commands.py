@@ -1,37 +1,84 @@
-#If running as main program import libraries relative to crime_data
 if __name__ == "modules.commands":
-    from modules.ui.ui import *
+    #If running as main program import libraries relative to crime_data
+    from modules.ui.cli import *
     from modules.data.search import *
+    from modules.data.filter import *
+    from modules.data.sort import *
+    from modules.geodist.geodist import distance
+    from modules.filewrite.writer import *
 else:
-#Import libraries for testing
-    from ui.ui import *
+    #Import libraries for testing
+    from ui.cli import *
     from data.search import *
-def retrieve_crime_data(crime_data_list):
-    # prompt the user to input the following: lat, long and radius
-    # (pls use the ui.py module for prompting)    
-    # create a second crime data list, this is the list which will be returned
-    # go through the crime data list that is passed (crime_data_list)
-    #   each value which is within the radius the user specified is added to the new list we just created
-    # prompt the user to see if they want to sort the results 
-    # if they do then sort the results using the data sorting module
-    # prompt the user for a file name to write the data to
-    # write the data to a csv file using the csv writer module
-    pass
+    from data.filter import *
+    from data.sort import *
+    from filewrite.writer import *
+    from geodist.geodist import distance
 
-def find_postcode_coordinate(postcodes):
-    """
-    Promts user for Postcode
-    Searches Postcode and prints coords
-    Prints erors if multiple values found or Postcode is not found
-    """
-
-    input = prompt("Please enter a Postcode")
-    search_result = search_list_dict(postcodes, input, "Postcode")
+def find_postcode_coordinate(postcode, data):
+    """ Finds a particular postocde co-rdinate using from the data variable """
+    search_result = search_list_dict(data, postcode, "Postcode")
     if search_result == [-1]:
-        print("No results found")
-        return False
-    if search_result == [-2]:
-        print("Multiple results found")
-        return False
-    print("Lattitude: " + search_result["ETRS89GD-Lat"] + " Longitude: " + search_result["ETRS89GD-Long"])
-    return search_result["ETRS89GD-Lat"] + search_result["ETRS89GD-Long"]
+        return -1
+    elif search_result == [-2]:
+        return -2
+    lat_long = [search_result["ETRS89GD-Lat"], search_result["ETRS89GD-Long"]]
+    return lat_long
+
+class CmdRetrieveCrimeData(Command):
+    def __init__(self, commandLine):
+        """ Constructor method. Calls parent class constructor. """
+        helpmessage = "Search for crime data, save it to csv and optionally sort it."
+        Command.__init__(self, 'crimedata', ['crimedata', 'postcodes'], commandLine, helpmessage)
+    
+    def commandBody(self, variables):
+        """
+        Prompts user for a postcode and finds centre coordinate of that postcode
+        Prompts user for a radius and filters crime data within that radius of postcode centre
+        Prompts user for method of sorting data
+        Prompts user for file name for CSV
+        Results are outputted into CSV with specified file name
+        Uses are re-prompted if invalid information is inputted
+        """
+        
+        # prompt for a postcode
+        input = self.prompt("Please enter a Postcode")
+        result = find_postcode_coordinate(input, variables['postcodes'])
+        if result == -1:
+            print("Could not find postcode")
+        elif result == -2:
+            print("Multiple postcodes found")
+        else:
+            # print lat and long incase they want it
+            print("Latitude: " + result[0] + " Longitude: " + result[1])
+            input = self.prompt("Please enter an integer search radius in kilometers")
+            
+            # perform some validation
+            try:
+                radius = int(input)
+            except ValueError:
+                print('That is not a valid integer.')
+                raise Exception('restart')
+            if radius <= 0:
+                print('Radius must be larger than 0')
+                raise Exception('restart')
+            
+            # if we get to here then the radius is valid, call the filter function
+            filtered_data = filterData(variables['crimedata'], [float(result[0]), float(result[1])], radius)
+            input = self.prompt('How would you like the data sorted? By "crime category", "date" (recent first), "distance" or "no sort"?' )
+            # setup the valid values and check against them
+            valid_values = {'crime cateogry':['Crime type', False], 'date' : ['Month', True], 'distance' : ['Distance', False], 'no sort':False}
+            
+            if input not in valid_values:
+                print('That was not one of "crime category", "date" or "distance"')
+                raise Exception('restart')
+            elif valid_values[input] != False:
+                # sort the data
+                sorted_data = listOfDictSort(filtered_data, valid_values[input][0], valid_values[input][1], dateFormat="")
+            
+            # save the report to csv
+            filepath = "default.csv"
+            input = self.prompt("What should the report be called?")
+            filepath = input + ".csv"
+            dict_to_csv(filepath, sorted_data)
+            print("Report created in " + filepath)

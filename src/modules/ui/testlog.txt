@@ -1,0 +1,4 @@
+quit - Exits the whole program
+help - Outputs this help message
+restart - Exits the current command
+Restarting...
