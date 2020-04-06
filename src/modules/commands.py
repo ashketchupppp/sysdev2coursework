@@ -4,16 +4,16 @@ if __name__ == "modules.commands":
     from modules.data.search import *
     from modules.data.filter import *
     from modules.data.sort import *
-    from modules.distance_between.geodist import distance
-    from modules.csv.writer import *
+    from modules.geodist.geodist import distance
+    from modules.filewrite.writer import *
 else:
 #Import libraries for testing
     from ui.cli import *
     from data.search import *
     from data.filter import *
     from data.sort import *
-    from csv.writer import *
-    from distance_between.geodist import distance
+    from filewrite.writer import *
+    from geodist.geodist import distance
 
 def find_postcode_coordinate(postcode, data):
     search_result = search_list_dict(data, postcode, "Postcode")

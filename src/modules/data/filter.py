@@ -1,12 +1,12 @@
 if __name__ == "modules.data.filter":
-    from modules.distance_between.geodist import distance
+    from modules.geodist.geodist import distance
 else:
 #Import libraries for testing
     import sys
     import os
     sys.path.insert(0, os.getcwd() + '/../')
     
-    from distance_between.geodist import distance
+    from geodist.geodist import distance
     
 def filterData(dictList, postcodelatlng, radius):
     """Function to filter the given data using the given values."""
@@ -16,9 +16,9 @@ def filterData(dictList, postcodelatlng, radius):
             crimelatlng = []
             crimelatlng.append(float(crime_record["Latitude"]))
             crimelatlng.append(float(crime_record["Longitude"]))
-            distance_between = distance(postcodelatlng, crimelatlng)
-            if int(distance_between) < radius:
-                crime_record['Distance'] = distance_between
+            geodist = distance(postcodelatlng, crimelatlng)
+            if int(geodist) < radius:
+                crime_record['Distance'] = geodist
                 result.append(crime_record)
         except:
             error = 1
