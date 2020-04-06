@@ -10,17 +10,21 @@ else:
     
 def filterData(dictList, postcodelatlng, radius):
     """Function to filter the given data using the given values."""
+    #create empty list
     result = []
+    #each dict in the list
     for crime_record in dictList:
         try:
-            crimelatlng = []
-            crimelatlng.append(float(crime_record["Latitude"]))
-            crimelatlng.append(float(crime_record["Longitude"]))
-            geodist = distance(postcodelatlng, crimelatlng)
+            crimelatlng = []#empty list
+            crimelatlng.append(float(crime_record["Latitude"])) #adding lat
+            crimelatlng.append(float(crime_record["Longitude"]))#adding long
+            geodist = distance(postcodelatlng, crimelatlng) #lookup distance between two coords
+            #if distance between the results is greter than users radius, then add result to list
             if int(geodist) < radius:
                 crime_record['Distance'] = geodist
                 result.append(crime_record)
         except:
-            error = 1
+            #catching error, used for testing
+            error = 1 
     return result
    
